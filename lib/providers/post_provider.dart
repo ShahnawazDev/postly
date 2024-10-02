@@ -34,4 +34,8 @@ class PostNotifier extends StateNotifier<List<Post>> {
   List<Post> getLikedPosts() {
     return state.where((post) => post.likes > 0).toList();
   }
+
+  Post getPostById(int postId) {
+    return state.firstWhere((post) => post.id == postId);
+  }
 }

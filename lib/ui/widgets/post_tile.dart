@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:postly/providers/saved_post_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:postly/providers/post_provider.dart';
 import 'package:postly/utils/assets_path.dart';
 import '../../models/post.dart';
@@ -24,7 +26,37 @@ class PostTile extends ConsumerWidget {
             leading: const CircleAvatar(child: Icon(Icons.person)),
             title: Text(post.username),
             subtitle: Text(post.username.split(' ').first),
-            trailing: const Icon(Icons.more_horiz),
+            trailing: IconButton(
+              icon: const Icon(Icons.more_horiz),
+              onPressed: () {
+                showModalBottomSheet(
+                  showDragHandle: true,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 100,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () => {
+                                ref
+                                    .read(savedPostProvider.notifier)
+                                    .savePost(post.id)
+                              },
+                              icon: const Icon(Icons.bookmark_add),
+                              label: const Text('Save'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
           Container(
             decoration: BoxDecoration(
@@ -126,7 +158,9 @@ class PostTile extends ConsumerWidget {
                   ),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Share.share(post.description);
+                  },
                   icon: Image.asset(AssetsPath.shareIcon),
                   label: const Text(
                     'Share',

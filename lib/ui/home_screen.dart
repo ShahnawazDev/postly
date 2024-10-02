@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:postly/ui/feed_screen.dart';
 import 'package:postly/ui/liked_screen.dart';
+import 'package:postly/ui/saved_posts_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const FeedScreen(),
     const LikedScreen(),
     const Center(child: Text('Community')),
-    const Center(child: Text('Saved')),
+    const SavedPostsScreen(),
   ];
 
   final _destinations = const [
