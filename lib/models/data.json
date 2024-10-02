@@ -1,0 +1,68 @@
+{
+    "message": "Events fetched successfully",
+    "data": {
+        "currentPage": 4,
+        "totalPages": 7,
+        "events": [
+            {
+                "eventLocation": {
+                    "coordinates": []
+                },
+                "_id": "6588a34c8586afce2161db6c",
+                "user": {
+                    "_id": "6576cee31bc7a29c6ab9509e",
+                    "firstName": "Vikram",
+                    "lastName": "Negi",
+                    "isVerified": false
+                },
+                "description": "Take charge of your well-being! Join our health and fitness seminar designed to educate and inspire. Learn about nutrition, mindfulness, and effective workout routines from renowned fitness trainers and health professionals.",
+                "title": "Health & Fitness Seminar",
+                "images": [],
+                "likedUsers": [],
+                "comments": [],
+                "eventCategory": [],
+                "eventStartAt": "2024-02-20T19:00:00Z",
+                "eventEndAt": "2024-03-15T14:00:00Z",
+                "registrationRequired": false,
+                "keywords": [],
+                "hashTags": [],
+                "registration": [],
+                "likes": 0,
+                "createdAt": "2023-12-24T21:31:56.633Z",
+                "updatedAt": "2023-12-24T21:31:56.633Z",
+                "__v": 0
+            },
+            {
+                "eventLocation": {
+                    "coordinates": []
+                },
+                "_id": "658898308586afce2161db21",
+                "user": {
+                    "_id": "6576cee31bc7a29c6ab9509e",
+                    "firstName": "Vikram",
+                    "lastName": "Negi",
+                    "isVerified": false
+                },
+                "description": "Experience an enchanting night of jazz music! Join us for an evening filled with soulful melodies and mesmerizing performances by talented jazz musicians. Let the rhythmic beats and soothing tunes captivate your senses.",
+                "title": "Music Concert: Jazz Night",
+                "images": [
+                    "http://res.cloudinary.com/dxrrkmkxj/image/upload/v1703450672/qut8n6wt0mlstk3u60j6.jpg"
+                ],
+                "likedUsers": [],
+                "comments": [],
+                "eventCategory": [],
+                "eventStartAt": "2024-02-20T19:00:00Z",
+                "eventEndAt": "2024-03-15T14:00:00Z",
+                "registrationRequired": false,
+                "keywords": [],
+                "hashTags": [],
+                "registration": [],
+                "likes": 0,
+                "createdAt": "2023-12-24T20:44:32.325Z",
+                "updatedAt": "2023-12-24T20:44:32.325Z",
+                "__v": 0
+            }
+          
+        ]
+    }
+}
