@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/post.dart';
@@ -7,8 +9,11 @@ class DBHelper {
     return openDatabase(
       join(await getDatabasesPath(), 'posts.db'),
       onCreate: (db, version) {
-        return db.execute(
-          "CREATE TABLE posts(id INTEGER PRIMARY KEY, username TEXT, content TEXT, likes INTEGER, comments INTEGER, description TEXT)",
+        db.execute(
+          "CREATE TABLE posts(id INTEGER PRIMARY KEY, username TEXT, content TEXT, likes INTEGER, comments INTEGER, description TEXT, category TEXT)",
+        );
+        db.execute(
+          "CREATE TABLE saved_posts(id INTEGER PRIMARY KEY)",
         );
       },
       version: 1,
@@ -35,8 +40,39 @@ class DBHelper {
         likes: maps[i]['likes'],
         comments: maps[i]['comments'],
         description: maps[i]['description'],
-        category: maps[i]['category'],// may need to change this due to category habing list of strings
+        category: List<String>.from(json.decode(maps[i]['category'])),
       );
     });
+  }
+
+  // New method to save post ID
+  static Future<void> savePostId(int id) async {
+    try {
+      final db = await DBHelper.database();
+      await db.insert(
+        'saved_posts',
+        {'id': id},
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      debugPrint('Post ID saved successfully');
+    } catch (e) {
+      debugPrint('Error saving post ID: $e');
+    }
+  }
+
+  // New method to fetch saved post IDs
+  static Future<List<int>> fetchSavedPostIds() async {
+    try {
+      final db = await DBHelper.database();
+      final List<Map<String, dynamic>> maps = await db.query('saved_posts');
+        debugPrint('Fetched saved post IDs successfully');
+      return List.generate(maps.length, (i) {
+        return maps[i]['id'];
+      });
+    
+    } catch (e) {
+      debugPrint('Error fetching saved post IDs: $e');
+      return [];
+    }
   }
 }

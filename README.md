@@ -1,6 +1,4 @@
-Here's a basic `README.md` file for your Flutter project, **Postly**, which you can include in your GitHub repository:
 
-```markdown
 # Postly
 
 **Postly** is a Flutter demo application built with Riverpod for state management. It is a social feed app that fetches posts from an API, supports infinite scrolling, and has features for local interactions like liking, commenting, and sharing posts. The app also supports offline storage for posts.
@@ -47,7 +45,7 @@ lib/
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/postly.git
+   git clone https://github.com/ShahnawazDev/postly.git
    ```
 
 2. Navigate to the project directory:
@@ -70,7 +68,7 @@ lib/
 
 ### API Details
 
-- **Posts API**: `https://post-api-omega.vercel.app/api/posts?page=1`
+- **Posts API**: `https://evika.onrender.com/api/posts?page=1`
 - **Login API**: `https://evika.onrender.com/api/auth/signin` (POST)
 - **Search API**: `https://evika.onrender.com/api/event/search?q={text}&page={page}&limit={limit}`
 

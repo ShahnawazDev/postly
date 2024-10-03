@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:postly/providers/saved_post_provider.dart';
 import 'package:postly/ui/widgets/custom_app_bar.dart';
 import 'package:postly/utils/assets_path.dart';
 import '../providers/post_provider.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends ConsumerState<FeedScreen> {
       }
     });
     ref.read(postProvider.notifier).fetchPosts();
+    ref.read(savedPostProvider.notifier).loadSavedPosts();
   }
 
   @override
@@ -75,7 +77,10 @@ class _HomeScreenState extends ConsumerState<FeedScreen> {
                   return PostTile(post: posts[index]);
                 } else {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               },

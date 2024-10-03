@@ -1,5 +1,7 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:postly/models/event.dart';
+import 'package:postly/utils/db_helper.dart';
 import 'dart:convert';
 import '../models/post.dart';
 
@@ -9,20 +11,29 @@ class ApiService {
   static const String searchUrl = '$baseUrl/search';
 
   Future<List<Post>> fetchPosts(int page, {String? query}) async {
-    final List<Event> events = await fetchEvents(page, query: query);
-    final List<Post> posts = events
-        .map((event) => Post(
-              id: event.id.hashCode,
-              username: '${event.user.firstName} ${event.user.lastName}',
-              content: event.images.first,
-              likes: event.likes,
-              comments: event.comments.length,
-              description: event.description,
-              category: event.eventCategory,
-            ))
-        .toList();
-  
-    return posts;
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      return DBHelper.fetchPosts();
+    } else {
+      final List<Event> events = await fetchEvents(page, query: query);
+      final List<Post> posts = events
+          .map((event) => Post(
+                id: event.id.hashCode,
+                username: '${event.user.firstName} ${event.user.lastName}',
+                content: event.images.first,
+                likes: event.likes,
+                comments: event.comments.length,
+                description: event.description,
+                category: event.eventCategory,
+              ))
+          .toList();
+
+      for(var post in posts){
+        await DBHelper.insertPost(post);
+      }
+
+      return posts;
+    }
   }
 
   Future<List<Event>> fetchEvents(int page, {String? query}) async {

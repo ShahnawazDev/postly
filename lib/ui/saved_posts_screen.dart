@@ -25,9 +25,12 @@ class SavedPostsScreen extends ConsumerWidget {
               itemCount: savedPostIds.length,
               itemBuilder: (context, index) {
                 final postId = savedPostIds[index];
-                final post = postProviderNotifier.getPostById(postId);
-
-                return PostTile(post: post);
+                if (postProviderNotifier.checkIfPostIsSaved(postId) == false) {
+                  return const SizedBox.shrink();
+                } else {
+                  final post = postProviderNotifier.getPostById(postId);
+                  return PostTile(post: post);
+                }
               },
             ),
     );

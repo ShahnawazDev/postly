@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/post.dart';
 import '../services/api_service.dart';
@@ -16,8 +15,8 @@ class PostNotifier extends StateNotifier<List<Post>> {
   Future<void> fetchPosts({String? query}) async {
     if (!isLoading) {
       isLoading = true;
-      final newPosts = await apiService.fetchPosts(currentPage,query: query);
-      debugPrint('Fetched ${newPosts.length} posts');
+      final newPosts = await apiService.fetchPosts(currentPage, query: query);
+      // debugPrint('Fetched ${newPosts.length} posts');
       state = [...state, ...newPosts];
       currentPage++;
       isLoading = false;
@@ -35,7 +34,13 @@ class PostNotifier extends StateNotifier<List<Post>> {
     return state.where((post) => post.likes > 0).toList();
   }
 
+  bool checkIfPostIsSaved(int postId) {
+    return state.any((post) => post.id == postId);
+  }
+
   Post getPostById(int postId) {
-    return state.firstWhere((post) => post.id == postId);
+    return state.firstWhere(
+      (post) => post.id == postId,
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Post {
   final int id;
   final String username;
@@ -37,7 +39,7 @@ class Post {
       'likes': likes,
       'comments': comments,
       'description': description,
-      'category': category,
+      'category': json.encode(category),
     };
   }
 

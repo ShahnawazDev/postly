@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:postly/providers/saved_post_provider.dart';
@@ -41,10 +42,11 @@ class PostTile extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             TextButton.icon(
-                              onPressed: () => {
+                              onPressed: () {
                                 ref
                                     .read(savedPostProvider.notifier)
-                                    .savePost(post.id)
+                                    .savePost(post.id);
+                                Navigator.pop(context);
                               },
                               icon: const Icon(Icons.bookmark_add),
                               label: const Text('Save'),
@@ -67,7 +69,12 @@ class PostTile extends ConsumerWidget {
             ),
             child: Stack(
               children: [
-                Image.network(post.content),
+                CachedNetworkImage(
+                  imageUrl: post.content,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
                 Positioned(
                   right: 8,
                   top: 8,
